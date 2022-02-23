@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -14,6 +14,12 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            <h1>Liste des produits</h1>
+
+            {%  for product in products %}
+                <p>{{ product.name }} : {{ product.price / 100 }}</p>
+            {%  endfor %}
+        {% endblock %}
     </body>
 </html>

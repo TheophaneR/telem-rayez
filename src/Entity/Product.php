@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use App\Repository\ProductRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
     /**
@@ -11,35 +15,50 @@ class Product
     {
         return $this->id;
     }
+
     /**
      * @var int|null numéro de produit
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private ?int $id;
 
     /**
-     * désignation
+     * @var string|null désignation
      */
+    #[ORM\Column]
     private ?string $name;
 
     /**
      * @var string|null description
      */
+    #[ORM\Column(length: 2000, nullable: true)]
     private ?string $description;
 
     /**
      * @var \DateTimeImmutable date d'ajout au catalogue
      */
+    #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
     /**
      * @var int|null quantité en stock
      */
+    #[ORM\Column]
     private ?int $quantityInStock;
 
     /**
      * @var float|null prix HT
      */
+    #[ORM\Column(type: 'integer')]
     private ?float $price;
+
+    /**
+     * @var string|null nom de l'image
+     */
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName;
 
     /**
      * @return string|null
@@ -148,9 +167,4 @@ class Product
         $this->imageName = $imageName;
         return $this;
     }
-
-    /**
-     * @var string|null nom de l'image
-     */
-    private ?string $imageName;
 }
