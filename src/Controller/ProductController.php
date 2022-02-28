@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ProductType;
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,15 +13,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
-    #[Route('/product/tous-les-produits', name: 'product_showall')]
-    public function showall(EntityManagerInterface $em): Response
+    /**
+     * @param ProductRepository $productRepository
+     * @return Response
+     * Contrôleur qui sert une page contenant la liste de tous les produits
+     */
+    #[Route('/product/show-all', name: 'product_show_all')]
+    public function showall(ProductRepository $productRepository): Response
     {
-        $productRepository = $em->getRepository(Product::class);
         $products = $productRepository->findAll();
-
-        return $this->render('base.html.twig', [
-            'products' => $products
-        ]);
+//        construction de la page HTML avec les produits récupérés
+        return $this->render('base.html.twig', ['products'=>$products]);
     }
 
     #[Route('product/new', name: 'product_add')]
