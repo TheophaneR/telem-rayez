@@ -12,7 +12,7 @@
     <li>Prix : {{ product.price|price }}</li>
     <li>Ajouté au catalogue le : {{ product.createdAt|dateFr }}</li>
     <li>
-        <img width="200px" src="/build/images/{{ product.imageName }}" alt="">
+        <img width="200px" src="/images/{{ product.imageName }}" alt="">
     </li>
     {% if products is not defined %}
     <li><a href="{{ path('product_show_all') }}">Voir tous les produits</a></li>
