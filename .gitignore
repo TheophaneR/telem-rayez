@@ -19,3 +19,7 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 .idea/
+
+###> Others ###
+node_modules/
+###< Others ###
