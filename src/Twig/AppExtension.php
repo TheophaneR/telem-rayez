@@ -3,7 +3,6 @@
 namespace App\Twig;
 
 use DateTimeInterface;
-use Symfony\Polyfill\Intl\Icu\IntlDateFormatter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -26,6 +25,6 @@ class AppExtension extends AbstractExtension
 
     public function dateInFrenchFormat(DateTimeInterface $date): string
     {
-        return date_format($date, "d F Y");
+        return date_format($date, "d/m/Y");
     }
 }

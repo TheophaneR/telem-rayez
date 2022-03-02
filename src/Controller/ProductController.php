@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
@@ -23,30 +24,23 @@ class ProductController extends AbstractController
     {
         $products = $productRepository->findAll();
 //        construction de la page HTML avec les produits récupérés
-        return $this->render('base.html.twig', ['products'=>$products]);
+        return $this->render('base.html.twig', ['products' => $products]);
     }
 
-    #[Route('product/new', name: 'product_add')]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    /**
+     * @return Response
+     *
+     * Contrôleur qui sert une page contenant la fiche d'un produit
+     */
+    #[Route('/product/show/{id}', name: 'product_show', requirements: ['id'=>'\d+'])]
+    public function show(int $id, ProductRepository $productRepository): Response
     {
-        $product = new Product();
-
-        $form = $this->createForm(
-            ProductType::class,
-            $product
-        );
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            $em->persist($product);
-            $em->flush();
-
-            return new Response('produit ajouté');
+        // récupération du produit dont l'id a été passé à notre contrôleur
+        $product = $productRepository->find($id);
+        if (null === $product) {
+            throw new NotFoundHttpException('Ce produit n\'existe pas.');
         }
-
-        return $this->render('product/product_form.html.twig', [
-            'form' => $form->createView()
-        ]);
+        // Construction de la page HTML avec le produit réceupéré
+        return $this->render('product/product_show.html.twig', ['product' => $product]);
     }
 }

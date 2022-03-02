@@ -15,7 +15,7 @@
     {% endblock %}
 </head>
 <body>
-{% for product in products %}
+<h1>Fiche produit</h1>
     <ul>
         <li>Nom du produit : {{ product.name }}</li>
 
@@ -32,9 +32,7 @@
         <li>
             <img width="200px" src="/build/images/{{ product.imageName }}" alt="">
         </li>
-        <li><a href="{{ path('product_show',{'id':product.id}) }}">Voir la fiche</a></li>
+        <li><a href="{{ path('product_show_all') }}">Voir tous les produits</a></li>
     </ul>
-    <p>------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
-{% endfor %}
 </body>
 </html>
