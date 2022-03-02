@@ -15,31 +15,25 @@
     {% endblock %}
 </head>
 <body>
-{% block body %}
-    <h1>Hello World :3</h1>
-
-    {{ dump(products[0]) }}
-
-
+{% for product in products %}
     <ul>
-        <li>Nom du produit : {{ products[0].name }}</li>
+        <li>Nom du produit : {{ product.name }}</li>
 
-        {% set description = products[0].description %}
+        {% set description = product.description %}
 
         {% if description is not empty %}
             <li>Description : {{ description }}</li>
         {% else %}
             <li>Il n'y a pas de desc</li>
         {% endif %}
-        <li>Quantité en stock : {{ products[0].quantityInStock }}</li>
-        <li>Prix : {{ (products[0].price/100)|number_format(2) }}€</li>
-        <li>Ajouté au catalogue le : {{ products[0].createdAt|date('d/m/Y') }}</li>
+        <li>Quantité en stock : {{ product.quantityInStock }}</li>
+        <li>Prix : {{ product.price|price }}</li>
+        <li>Ajouté au catalogue le : {{ product.createdAt|dateFr }}</li>
         <li>
-            <img src="/build/images/{{ products[0].imageName }}" alt="">
+            <img width="200px" src="/build/images/{{ product.imageName }}" alt="">
         </li>
     </ul>
-
-
-{% endblock %}
+    <p>------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+{% endfor %}
 </body>
 </html>
