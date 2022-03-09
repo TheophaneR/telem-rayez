@@ -1,0 +1,40 @@
+.Card {
+  background-color: white;
+
+  display: flex; // les éléments directement enfants deviennent des flex-items (ils se placent sur la même ligne les uns à la suite des autres, sans retour à la ligne)
+  & > * {
+    flex-basis: 0; // taille de base équivalente au contenu
+  }
+
+  &_image {
+    flex-grow: 1.5;
+
+    display: flex; // pour permettre à l'élément enfant (qui est ici l'image) de bénéficier des propriétés applicables aux flex-items
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_info {
+    flex-grow: 2;
+    padding: 5px;
+
+    display: flex; // je veux que les éléments enfants directs (title, description et price) deviennent des flex-items
+    flex-direction: column;
+  }
+
+  &_title {
+    font-size: 3rem;
+    font-weight: bold;
+
+    flex-grow: .5;
+  }
+
+  &_description {
+    flex-grow: 2;
+  }
+
+  &_price {
+    font-weight: bold;
+  }
+}
