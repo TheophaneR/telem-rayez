@@ -1,7 +1,20 @@
 .Card {
   background-color: white;
+  padding: 5px;
+  border: solid #0cf 2px;
 
   display: flex; // les éléments directement enfants deviennent des flex-items (ils se placent sur la même ligne les uns à la suite des autres, sans retour à la ligne)
+
+  &:hover {
+    border: solid 2px darken(#0cf, 20%);
+  }
+
+  &.-only {
+    &:hover {
+      border: solid #0cf 2px;
+    }
+  }
+
   & > * {
     flex-basis: 0; // taille de base équivalente au contenu
   }
@@ -16,6 +29,8 @@
   }
 
   &_info {
+    text-decoration: none;
+    color: inherit;
     flex-grow: 2;
     padding: 5px;
 
