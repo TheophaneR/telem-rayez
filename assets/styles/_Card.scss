@@ -6,7 +6,7 @@
   display: flex; // les éléments directement enfants deviennent des flex-items (ils se placent sur la même ligne les uns à la suite des autres, sans retour à la ligne)
 
   &:hover {
-    border: solid 2px darken(#0cf, 20%);
+    border: solid 2px $card-border-color-hover;
   }
 
   &.-only {

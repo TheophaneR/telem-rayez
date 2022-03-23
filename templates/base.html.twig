@@ -15,14 +15,16 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body>
-<header><p class="Brand">Telem</p></header>
-<aside class="MainMenu"></aside>
-<main>
+<body class="LayoutContainer">
+<header class="Header LayoutContainer_header">
+    <p class="Brand -sober -big">Telem</p>
+</header>
+<aside class="MainMenu LayoutContainer_mainMenu"></aside>
+<main class="Main LayoutContainer_mainContent">
     {% block body %}
     {% endblock %}
 </main>
-<footer>
+<footer class="Footer LayoutContainer_footer">
     pied2paj
 </footer>
 </body>
