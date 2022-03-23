@@ -6,4 +6,15 @@
   //pour gérer un centrage vertical des éléments enfants
   display: flex;
   align-items: center;
+
+  &_brand {
+    // cette propriété permet de déterminer la taille de l'élément flexible
+    flex-basis: 250px - $padding-base;
+    box-sizing: border-box;
+  }
+
+  &_banner {
+    background-color: yellow;
+    flex-grow: 1;
+  }
 }

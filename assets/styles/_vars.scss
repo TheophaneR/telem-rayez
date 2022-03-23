@@ -1,31 +1,9 @@
-/* couleur du thème */
+/* #######################
+   # VARIABLES PARTAGÉES #
+   #######################*/
+
+/* Couleur du thème */
 $color-base: #0cf;
-
-/* Header */
-$header-bg-color: $color-base;
-
-/* Brand */
-$brand-color: #f70;
-$brand-font-color: #fff;
-$brand-font-family: 'Oxygen', sans-serif;
-
-/* MainMenu */
-$mainMenu-bg-color: #678;
-
-/* Main */
-$main-bg-color: #def;
-
-/* Footer */
-$footer-bg-color: $color-base;
-
-/* padding */
-$padding-smallest: 2px;
-$padding-smaller: 3px;
-$padding-small: 4px;
-$padding-base: 5px;
-$padding-big: 10px;
-$padding-bigger: 15px;
-$padding-biggest: 20px;
 
 /* margin */
 $margin-smallest: 2px;
@@ -36,6 +14,36 @@ $margin-big: 10px;
 $margin-bigger: 15px;
 $margin-biggest: 20px;
 
+/* padding */
+$padding-smallest: 2px;
+$padding-smaller: 3px;
+$padding-small: 4px;
+$padding-base: 5px;
+$padding-big: 10px;
+$padding-bigger: 15px;
+$padding-biggest: 20px;
+
+/* #########
+   # BLOCS #
+   #########*/
+
+/* Brand */
+$brand-color: #f70;
+$brand-font-color: #fff;
+$brand-font-family: 'Oxygen', sans-serif;
+
 /* Card */
 $card-border-color: #0cf;
-$card-border-color-hover: darken($card-border-color, 20%)
+$card-border-color-hover: darken($card-border-color, 20%);
+
+/* Footer */
+$footer-bg-color: $color-base;
+
+/* Header */
+$header-bg-color: $color-base;
+
+/* MainMenu */
+$mainMenu-bg-color: #678;
+
+/* Main */
+$main-bg-color: #def;
