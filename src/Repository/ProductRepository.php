@@ -24,11 +24,31 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-// Initialisation du QueryBuilder courant de la variable QB
+    /**
+     * Initialisation du QueryBuilder courant de la variable QB
+     *
+     * @return void
+     */
     private function initializeQueryBuilder(): void
     {
         $this->qb = $this->createQueryBuilder($this->alias)->select($this->alias);
     }
+
+    /**
+     * Initialise le queryBuilder avec la fonction agrégative COUNT sur l'attribut clé primaire (il n'y a donc aucun élément NULL qui pour rappel sont ignorés par la fonction COUNT)
+     *
+     * @return void
+     */
+    private function initializeQueryBuilderWithCount(): void
+    {
+        $this->qb = $this
+            ->createQueryBuilder($this->alias)
+            ->select("COUNT($this->alias.id)");
+//        s'il fallait ignorer les doublons :
+//        ->select("COUNT(DISTINCT $this->alias.id)");
+    }
+
+
 
 // Méthodes retournant un QueryBuilder
 
@@ -45,15 +65,40 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * Construit un QueryBuilder qui recherche tous les items contenant la chaîne passée en argument
+     *
+     * @param $keyword
+     * @return void
+     */
+    private function searchQb($keyword): void
+    {
+        $this->orPropertyLike('description',$keyword);
+        $this->orPropertyLike('name',$keyword);
+    }
+
+    /**
      * @param string $keyword
      * @return array
      */
     public function search(string $keyword): array
     {
         $this->initializeQueryBuilder();
-        $this->orPropertyLike('name', $keyword);
-        $this->orPropertyLike('description', $keyword);
+        $this->searchQb($keyword);
 
         return $this->qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param string $keyword
+     * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function searchCount(string $keyword): int
+    {
+        $this->initializeQueryBuilderWithCount();
+        $this->searchQb($keyword);
+
+        return $this->qb->getQuery()->getSingleScalarResult(); // on récupère un et un seul résultat qui est un entier
     }
 }
