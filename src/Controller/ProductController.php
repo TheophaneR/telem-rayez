@@ -32,7 +32,7 @@ class ProductController extends AbstractController
      *
      * Contrôleur qui sert une page contenant la fiche d'un produit
      */
-    #[Route('/product/show/{id}', name: 'product_show', requirements: ['id'=>'\d+'])]
+    #[Route('/product/show/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
     public function show(int $id, ProductRepository $productRepository): Response
     {
         // récupération du produit dont l'id a été passé à notre contrôleur
@@ -42,5 +42,22 @@ class ProductController extends AbstractController
         }
         // Construction de la page HTML avec le produit réceupéré
         return $this->render('product/product_show.html.twig', ['product' => $product]);
+    }
+
+    /**
+     * Recherche des produits à partir d'un mot clé
+     *
+     * @param Request $request
+     * @param ProductRepository $productRepository
+     * @return Response
+     */
+    #[Route('/product/search', name: 'product_search', methods: ['POST'])]
+    public function search(Request $request, ProductRepository $productRepository): Response
+    {
+        $keywordSearched = ($request->request->get('searchProduct'));
+
+        $products = $productRepository->search($keywordSearched);
+
+        return $this->render('product/product_show_all.html.twig',['products'=>$products]);
     }
 }
