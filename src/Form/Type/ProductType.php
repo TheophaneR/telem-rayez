@@ -29,8 +29,8 @@ class ProductType extends AbstractType
             ])
             ->add('price', TextType::class, [
                 'label' => 'Prix'
-            ])
-            ->add('enregistrer', SubmitType::class);
+            ]);
+//            ->add('enregistrer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
