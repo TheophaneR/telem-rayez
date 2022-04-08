@@ -31,7 +31,11 @@ class ManageProductController extends AbstractController
             $em->persist($product);
             // synchronisation des objets persistés dans la bdd
             $em->flush();
+            $this->addFlash('success', 'Le produit a été ajouté au catalogue.');
+            $this->addFlash('success', 'Tout a bien fonctionné.');
+            $this->addFlash('error', 'Tout a planté.');
 
+            // on redirige l'utilisateur (ex : vers la page du catalogue)
             return $this->redirectToRoute('product_show_all');
         }
         return $this->renderForm('product/product_new.html.twig',
