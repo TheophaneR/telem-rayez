@@ -4,7 +4,7 @@
 
     {% for product in products %}
         {% if loop.first %}
-            <p>{{ nb_of_results }} résultat(s)</p>
+{#            <p>{{ nb_of_results }} résultat(s)</p>#}
         <div class="CardCollect">
         {% endif %}
         {% include 'product/_product_card.html.twig' %}
