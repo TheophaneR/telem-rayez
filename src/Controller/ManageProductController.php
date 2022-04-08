@@ -23,8 +23,8 @@ class ManageProductController extends AbstractController
         );
         $form->add('Ajouter', SubmitType::class); // permet d'ajouter un champ à ceux prévus dans la classe ProductType
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            echo 'Le formulaire a été validé.';
+        if ($form->isSubmitted() && $form->isValid()) {
+            // persister l'objet en bdd
         }
         return $this->renderForm('product/product_new.html.twig',
             [
