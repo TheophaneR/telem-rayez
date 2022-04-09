@@ -28,9 +28,23 @@
     {#    {{ dump(app.flashes) }} #}
     {% for messages in app.flashes %}
         {% for message in messages %}
-            <p>{{ message }}</p>
+            <p class="Message - {{ label }}">{{ message }}</p>
         {% endfor %}
     {% endfor %}
+
+    <a class="Button" href="">Gérer</a>
+    <a class="Button -reverse" href="">Gérer</a>
+    <hr>
+    <a class="Button -link" href="">Gérer</a>
+    <a class="Button -link -reverse" href="">Gérer</a>
+    <hr>
+    <a class="Button -no-danger" href="">Gérer</a>
+    <a class="Button -no-danger -reverse" href="">Gérer</a>
+    <hr>
+    <a class="Button -danger" href="">Gérer</a>
+    <a class="Button -danger -reverse" href="">Gérer</a>
+
+
     {% block body %}
     {% endblock %}
 </main>

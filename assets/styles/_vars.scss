@@ -3,7 +3,7 @@
    #######################*/
 
 /* Couleur du thème */
-$color-base: #0cf;
+$color-base: #459;
 $color-secondary: #2ad;
 
 /* grid */
@@ -39,6 +39,23 @@ $radius-base: 5px;
 $brand-color: #f70;
 $brand-font-color: #fff;
 $brand-font-family: 'Oxygen', sans-serif;
+
+/* Button */
+// bouton par défaut
+$button-default-reverse-color: #fff;
+$button-default-color: #6b6b6b;
+
+// bouton de lien
+$button-link-color: $color-base;
+$button-link-reverse-color: #fff;
+
+// bouton de validation sans danger
+$button-no-danger-color: #070;
+$button-no-danger-reverse-color: #fff;
+
+// bouton de danger
+$button-danger-color: #f00;
+$button-danger-reverse-color: #fff;
 
 /* Card */
 $card-border-color: #0cf;
