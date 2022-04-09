@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
@@ -29,14 +30,10 @@ class ProductController extends AbstractController
      *
      * Contrôleur qui sert une page contenant la fiche d'un produit
      */
-    #[Route('/product/show/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
-    public function show(int $id, ProductRepository $productRepository): Response
+    #[Route('/product/show/{product_id}', name: 'product_show', requirements: ['product_id' => '\d+'])]
+    #[Entity('product', options: ['id' => 'product_id'])]
+    public function show(Product $product): Response
     {
-        // récupération du produit dont l'id a été passé à notre contrôleur
-        $product = $productRepository->find($id);
-        if (null === $product) {
-            throw new NotFoundHttpException('Ce produit n\'existe pas.');
-        }
         // Construction de la page HTML avec le produit réceupéré
         return $this->render('product/product_show.html.twig', ['product' => $product]);
     }
