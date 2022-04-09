@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\Type\ProductType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,8 +33,6 @@ class ManageProductController extends AbstractController
             // synchronisation des objets persistés dans la bdd
             $em->flush();
             $this->addFlash('success', 'Le produit a été ajouté au catalogue.');
-            $this->addFlash('success', 'Tout a bien fonctionné.');
-            $this->addFlash('error', 'Tout a planté.');
 
             // on redirige l'utilisateur (ex : vers la page du catalogue)
             return $this->redirectToRoute('product_show_all');
@@ -43,5 +42,42 @@ class ManageProductController extends AbstractController
                 'form' => $form
             ]
         );
+    }
+
+    #[Route('manage/product/edit/{id}', name: 'manage_product_edit')]
+    public function edit(int $id, Request $request, EntityManagerInterface $em)
+    {
+        $productRepository = $em->getRepository(Product::class);
+        $product = $productRepository->find($id);
+        // je génère une erreur 404 si le produit n'existe pas
+        if (!$product) {
+            throw $this->createNotFoundException("Aucun produit avec l'id $id");
+        }
+
+        $form = $this->createForm(
+            ProductType::class,
+            $product,
+        );
+        $form->add('updateProduct', SubmitType::class, [
+            'label' => 'Modifier le produit',
+            'attr' => [
+                'class' => 'Button -no-danger -reverse'
+            ]
+        ]); // permet d'ajouter un champ à ceux prévus dans la classe ProductType
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // mise à jour de la date de création
+            $product->setCreatedAt(new \DateTimeImmutable());
+
+            // synchronisation des objets persistés dans la bdd
+            $em->flush();
+            $this->addFlash('success', 'Le produit a été mis à jour dans la bdd.');
+
+            // on redirige l'utilisateur (ex : vers la page du catalogue)
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
+        return $this->renderForm('product/product_new.html.twig', [
+            'form' => $form,
+        ]);
     }
 }
