@@ -1,12 +1,16 @@
 {# Demande la confirmation de suppression d'un produit #}
 {% extends "base.html.twig" %}
 {% block body %}
-    <p class="Message -warning">Vous êtes sur le point de supprimer l'article ci-dessous. Confirmez l'action si vous êtes sûr de ce que
+    <p class="Message -warning">Vous êtes sur le point de supprimer l'article ci-dessous. Confirmez l'action si vous
+        êtes sûr de ce que
         vous
         faites.</p>
     <p>
-        <a class="Button -danger -reverse" href="{{ path('manage_product_delete',{'id':product.id}) }}">Supprimer
-            définitivement</a>
+    <form action="{{ path('manage_product_delete',{'id':product.id}) }}">
+        {# name peut avoir n'importe quelle valeur, la fonction csrf_token est fournie par twig, le nom "delete-product" peut avoir n'importe quelle valeur #}
+        <input hidden type="text" name="token" value="{{ csrf_token('delete-product') }}">
+        <button type="submit" class="Button -danger -reverse">Supprimer définitivement</button>
+    </form>
     </p>
     {% include 'product/_product_card.html.twig' %}
 {% endblock body %}

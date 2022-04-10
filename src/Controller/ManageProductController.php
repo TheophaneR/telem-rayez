@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\throwException;
 
 class ManageProductController extends AbstractController
 {
@@ -64,7 +65,7 @@ class ManageProductController extends AbstractController
 
             // synchronisation des objets persistés dans la bdd
             $em->flush();
-            $this->addFlash('success', 'Le produit a été mis à jour dans la bdd.');
+            $this->addFlash('success', 'Le produit a été mis à jour dans la bdd');
 
             // on redirige l'utilisateur (ex : vers la page du catalogue)
             return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
@@ -76,14 +77,23 @@ class ManageProductController extends AbstractController
     }
 
     #[Route('manage/product/delete/{id}', name: 'manage_product_delete', requirements: ['id' => '\d+'])]
-    public function delete(Product $product, EntityManagerInterface $em): Response
+    public function delete(Product $product, EntityManagerInterface $em, Request $request): Response
     {
-        $id = $product->getId();
+        //        récupération du token soumis pour le formulaire
+        //        les noms 'token' et "delete-product' doivent être identiques à ceux indiqués dans le fichier twig (en l'occurence le product_delete_confirm
+        $submittedToken = $request->request->get('token');
+        //        comparaison de ce token
+        if ($this->isCsrfTokenValid('delete-product', $submittedToken)) {
+            $id = $product->getId();
 
-        $em->remove($product);
-        $em->flush();
+            $em->remove($product);
+            $em->flush();
 
-        $this->addFlash('success', 'Le produit a été supprimé',);
+            $this->addFlash('success', "Le produit a été supprimé");
+        } else {
+            $this->addFlash('error', "Le token pour la suppression du produit est invalide");
+            $this->redirectToRoute('manage_product_edit', ['id' => $product->getId()]);
+        }
 
         return $this->redirectToRoute('product_show_all');
     }
