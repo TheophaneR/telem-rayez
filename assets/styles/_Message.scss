@@ -1,0 +1,49 @@
+.Message {
+  padding: $padding-big;
+  border-radius: $radius-base;
+  color: #aaa;
+  border-left: 8px solid currentColor;
+  background-color: #eee;
+  margin-bottom: $margin-big;
+
+  &::before {
+    content: '\02B25';
+    padding-right: $padding-base;
+  }
+
+  &.-success {
+    background-color: #cfd;
+    color: #2a5;
+
+    &::before {
+      content: '\02714';
+    }
+  }
+
+  &.-notice {
+    background-color: #dff;
+    color: #4bf;
+
+    &::before {
+      content: '\1F6C8';
+    }
+  }
+
+  &.-error {
+    background-color: #fdd;
+    color: #f45;
+
+    &::before {
+      content: '\02718';
+    }
+  }
+
+  &.-warning {
+    background-color: #fd9;
+    color: #c80;
+
+    &::before {
+      content: '\02718';
+    }
+  }
+}

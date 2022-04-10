@@ -30,8 +30,7 @@ class ProductController extends AbstractController
      *
      * Contrôleur qui sert une page contenant la fiche d'un produit
      */
-    #[Route('/product/show/{product_id}', name: 'product_show', requirements: ['product_id' => '\d+'])]
-    #[Entity('product', options: ['id' => 'product_id'])]
+    #[Route('/product/show/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
     public function show(Product $product): Response
     {
         // Construction de la page HTML avec le produit réceupéré
