@@ -6,7 +6,7 @@
         vous
         faites.</p>
     <p>
-    <form action="{{ path('manage_product_delete',{'id':product.id}) }}">
+    <form action="{{ path('manage_product_delete',{'id':product.id}) }}" method="post">
         {# name peut avoir n'importe quelle valeur, la fonction csrf_token est fournie par twig, le nom "delete-product" peut avoir n'importe quelle valeur #}
         <input hidden type="text" name="token" value="{{ csrf_token('delete-product') }}">
         <button type="submit" class="Button -danger -reverse">Supprimer définitivement</button>
